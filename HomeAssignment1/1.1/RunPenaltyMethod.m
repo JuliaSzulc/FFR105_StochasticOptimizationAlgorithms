@@ -10,7 +10,10 @@ rowsNumber = length(MU_VALUES);
 outputSize = [rowsNumber, 3];
 columnNames = {'mu', 'x1*', 'x2*'};
 columnTypes = {'double', 'double', 'double'};
-output = table('Size', outputSize, 'VariableTypes', columnTypes, 'VariableNames', columnNames);
+output = table(...
+    'Size', outputSize, ...
+    'VariableTypes', columnTypes, ...
+    'VariableNames', columnNames);
 
 for i = 1:rowsNumber
     mu = MU_VALUES(i);
