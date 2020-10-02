@@ -1,12 +1,19 @@
 clear all;
+addpath('TSPgraphics');
 
-POPULATION_SIZE = 10;
-NUMBER_OF_GENERATIONS = 1;
+POPULATION_SIZE = 100;
+NUMBER_OF_GENERATIONS = 3000;
 MUTATION_PROBABILITY = 0.02;
+ELITISM_PARAMETER = 1;
+
 % preparing data
 cityLocations = LoadCityLocations();
 nCities = size(cityLocations, 1);
 cityDistances = CalculateDistances(cityLocations);
+
+tspFigure = InitializeTspPlot(cityLocations, [0 20 0 20]); 
+connection = InitializeConnections(cityLocations);
+plottedShortestPath = zeros(1, nCities);
 
 % initialization
 fitness = zeros(POPULATION_SIZE, 1);
@@ -37,5 +44,29 @@ for iGeneration = 1:NUMBER_OF_GENERATIONS
         tempPopulation(i, :) = mutatedChromosome;
     end
 
-    population = tempPopulation;
+    % elitism
+    maximumFitness = 0.0;
+    shortestPathLength = 0.0;
+    shortestPath = zeros(1, nCities);
+
+    for i = 1:POPULATION_SIZE
+        chromosome = population(i, :);
+        fitness(i) = EvaluateIndividual(chromosome, cityDistances);
+
+        if fitness(i) > maximumFitness
+            maximumFitness = fitness(i);
+            shortestPath = chromosome;
+            shortestPathLength = CalculatePathLength(shortestPath, cityDistances);
+        end
+    end
+
+    population = InsertBestIndividual(tempPopulation, shortestPath, ELITISM_PARAMETER);
+
+    if ~isequal(shortestPath, plottedShortestPath)
+        PlotPath(connection, cityLocations, shortestPath);
+        plottedShortestPath = shortestPath;
+    end
 end
+
+fprintf('shortestPathLength: %f\n', shortestPathLength);
+fprintf('shortestPath: %s', mat2str(shortestPath));

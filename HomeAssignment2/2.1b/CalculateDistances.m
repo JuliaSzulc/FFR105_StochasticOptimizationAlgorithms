@@ -5,7 +5,7 @@ function cityDistances = CalculateDistances(cityLocations)
 
     for i = 1:nCities
         for j = (i + 1):nCities
-            euclideanDistance = norm(cityLocations(i) - cityLocations(j));
+            euclideanDistance = norm(cityLocations(i, :) - cityLocations(j, :));
             cityDistances(i, j) = euclideanDistance;
             cityDistances(j, i) = euclideanDistance;
         end
