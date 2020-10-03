@@ -1,5 +1,5 @@
 clear all;
-addpath('TSPgraphics');
+addpath('../TSPgraphics');
 
 POPULATION_SIZE = 100;
 NUMBER_OF_GENERATIONS = 3000;
