@@ -4,7 +4,7 @@ function mutatedChromosome = Mutate(chromosome, mutationProbability)
 
     for i = 1:nGenes
         if rand < mutationProbability
-            j = 1 + fix(rand * nGenes);
+            j = randi(nGenes);
             mutatedChromosome([i, j]) = mutatedChromosome([j, i]);
         end
     end
