@@ -1,13 +1,15 @@
 clear all;
 
 % Parameters
-nParticles = 50;
+nParticles = 30;
 nDimensions = 2;
-nIterations = 1000;
+nIterations = 100;
 [xMin, xMax] = deal(-5, 5);
-alpha = 1;
+alpha = 0.99;
 [c1, c2] = deal(2, 2);
 maxVelocity = xMax - xMin;
+[minIntertiaWeight, maxInertiaWeight] = deal(0.3, 1.4);
+beta = 0.95;
 
 % Initialization
 positions = InitializePositions(nParticles, nDimensions, xMin, xMax);
@@ -18,6 +20,8 @@ bestIndividualPositions = inf(nParticles, nDimensions);
 
 bestPerformance = inf;
 bestPosition = inf(1, nDimensions);
+
+inertiaWeight = maxInertiaWeight;
 
 % Iterations
 for i = 1:nIterations
@@ -36,14 +40,15 @@ for i = 1:nIterations
                 bestPerformance = performance;
                 bestPosition = position;
 
-                fprintf('Iteration: %d, bestPerformance: %.4f, bestPosition: (%.4f, %.4f)\n',...
+                fprintf('Iteration: %d, bestPerformance: %.6f, bestPosition: (%.6f, %.6f)\n',...
                     i, bestPerformance, bestPosition);
             end
         end
     end
 
-    % Update velocities and positions
+    % Update velocities, positions and inertia weight
     velocities = UpdateVelocities(velocities, c1, c2, positions, bestIndividualPositions,...
-        bestIndividualPerformances, maxVelocity);
+        bestIndividualPerformances, maxVelocity, inertiaWeight);
     positions = positions + velocities;
+    inertiaWeight = UpdateInertiaWeight(inertiaWeight, beta, minIntertiaWeight);
 end
