@@ -7,10 +7,11 @@ function deltaPheromoneLevels = ComputeDeltaPheromoneLevels(pathCollection, path
         pathLength = pathLengthCollection(i);
 
         currentCity = path(end);
-        for nextCity = 1:nCities
+        for nextCity = path
             antPheromone = inv(pathLength);
             deltaPheromoneLevels(currentCity, nextCity) = ...
                 deltaPheromoneLevels(currentCity, nextCity) + antPheromone;
+            currentCity = nextCity;
         end
     end
 end

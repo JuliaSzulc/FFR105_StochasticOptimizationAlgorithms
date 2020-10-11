@@ -2,8 +2,9 @@ function nearestNeighbourPathLength = GetNearestNeighbourPathLength(cityLocation
     nCities = length(cityLocations);
     tabuList = false(1, nCities);
     nearestNeighbourPathLength = 0;
-
-    currentCity = randi(nCities);
+    startCity = randi(nCities);
+    
+    currentCity = startCity;
     tabuList(currentCity) = true;
 
     for i = 1:(nCities - 1)
@@ -13,4 +14,7 @@ function nearestNeighbourPathLength = GetNearestNeighbourPathLength(cityLocation
         tabuList(nextCity) = true;
         currentCity = nextCity;
     end
+    
+    nearestNeighbourPathLength = nearestNeighbourPathLength +...
+        CalculateDistance(currentCity, startCity, cityLocations);
 end
