@@ -1,3 +1,3 @@
-function socialComponents = CalculateSocialComponents(constant, positions, bestIndividualPerformances)
-    socialComponents = constant * rand(size(positions)) .* (bestIndividualPerformances - positions);
+function socialComponents = CalculateSocialComponents(constant, positions, bestPosition)
+    socialComponents = constant * rand(size(positions)) .* (bestPosition - positions);
 end

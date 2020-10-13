@@ -1,7 +1,9 @@
-function inertiaWeight = UpdateInertiaWeight(inertiaWeight, beta, minInertiaWeight)
+function newInertiaWeight = UpdateInertiaWeight(inertiaWeight, beta, minInertiaWeight)
+    newInertiaWeight = 0;
+    
     if inertiaWeight == minInertiaWeight
         return
     end
     
-    inertiaWeight = max(beta * inertiaWeight, minInertiaWeight);
+    newInertiaWeight = max(beta * inertiaWeight, minInertiaWeight);
 end

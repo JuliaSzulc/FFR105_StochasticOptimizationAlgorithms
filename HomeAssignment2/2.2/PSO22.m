@@ -3,12 +3,12 @@ clear all;
 % Parameters
 nParticles = 30;
 nDimensions = 2;
-nIterations = 100;
+nIterations = 200;
 [xMin, xMax] = deal(-5, 5);
 alpha = 1;
 [c1, c2] = deal(2, 2);
 maxVelocity = xMax - xMin;
-[minIntertiaWeight, maxInertiaWeight] = deal(0.3, 1.4);
+[minIntertiaWeight, maxInertiaWeight] = deal(0.35, 1.4);
 beta = 0.95;
 
 % Initialization
@@ -48,7 +48,7 @@ for i = 1:nIterations
 
     % Update velocities, positions and inertia weight
     velocities = UpdateVelocities(velocities, c1, c2, positions, bestIndividualPositions,...
-        bestIndividualPerformances, maxVelocity, inertiaWeight);
+        bestPosition, maxVelocity, inertiaWeight);
     positions = positions + velocities;
     inertiaWeight = UpdateInertiaWeight(inertiaWeight, beta, minIntertiaWeight);
 end
