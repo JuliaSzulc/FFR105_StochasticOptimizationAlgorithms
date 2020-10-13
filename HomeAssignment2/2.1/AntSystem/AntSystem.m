@@ -5,8 +5,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 clear all;
+clf;
 clc;
 addpath('../TSPgraphics');
+addpath('../NearestNeighbour');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Data
@@ -22,7 +24,7 @@ alpha = 1.0;
 beta = 2.5;
 rho = 0.5;
 
-nearestNeighbourPathLength = GetNearestNeighbourPathLength(cityLocation);
+nearestNeighbourPathLength = GetNearestNeighbourPathLength(cityLocation)
 tau0 = numberOfAnts/nearestNeighbourPathLength;
 
 targetPathLength = 123.0;
@@ -59,6 +61,7 @@ while (minimumPathLength > targetPathLength)
   if (pathLength < minimumPathLength)
     minimumPathLength = pathLength;
     disp(sprintf('Iteration %d, ant %d: path length = %.5f',iIteration,k,minimumPathLength));
+    disp(mat2str(path));
     PlotPath(connection,cityLocation,path);
   end
   pathCollection = [pathCollection; path];           

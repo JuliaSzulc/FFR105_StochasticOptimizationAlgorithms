@@ -5,5 +5,6 @@ function nextCity = GetNextCity(currentCity, tabuList, pheromoneLevels, visibili
     probabilities = GenerateProbabilities(currentCity, tabuList, pheromoneLevels, ...
         visibilities, alpha, beta);
 
-    nextCity = randsample(stream, 1:nCities, 1, true, probabilities);
+    index = probabilities(2, probabilities(1, :)>=rand);
+    nextCity = index(1);
 end

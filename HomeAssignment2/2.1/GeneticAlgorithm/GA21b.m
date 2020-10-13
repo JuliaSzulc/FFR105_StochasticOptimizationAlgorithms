@@ -1,4 +1,5 @@
 clear all;
+clf;
 addpath('../TSPgraphics');
 
 POPULATION_SIZE = 100;

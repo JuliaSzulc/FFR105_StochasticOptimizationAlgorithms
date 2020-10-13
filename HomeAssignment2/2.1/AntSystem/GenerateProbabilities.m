@@ -12,7 +12,16 @@ function probabilities = GenerateProbabilities(currentCity, tabuList, pheromoneL
     end
 
     denominator = sum(numerator);
-    probabilities = numerator / denominator;
+    probabilities1 = numerator / denominator;
+    probabilities = zeros(2, length(probabilities1));
+    
+    for i = 1:length(probabilities1)
+        probabilities(1, i) = probabilities1(i);
+        probabilities(2, i) = i;
+    end
+    
+    probabilities = sortrows(probabilities', 1)';
+    probabilities(1, :) = cumsum(probabilities(1, :));
 end
 
 
@@ -20,6 +29,6 @@ function edgeWeight = CalculateEdgeWeight(i, j, pheromoneLevels, visibilities, a
     edgeWeight = pheromoneLevels(i, j)^alpha * visibilities(i, j)^beta;
     
     if edgeWeight == 0
-        edgeWeight = realmin;
+       edgeWeight = realmin;
     end
 end
